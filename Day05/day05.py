@@ -23,16 +23,34 @@ def find_lowest(seed):
     return location
 
 
-def prev_to_next_seed(source, destination_data):
-    for destination in destination_data:
-        if (source >= destination[1]) and (source < (destination[1] + destination[2])):
-            return destination[0] + source - destination[1], destination[2]
-    return source, 0
-
-
 locations = []
 
 for seed in seeds:
     locations.append(find_lowest(seed))
 
 print(min(locations))
+print()
+
+
+def extract_points_of_interest(data):
+    points = []
+    for i in data:
+        points.append(i[1])
+        points.append(i[1] + i[2])
+    return sorted(list(set(points)))
+
+
+def build_reverse_map():
+    h = extract_points_of_interest(data["humidity-to-location"])
+    t = extract_points_of_interest(data["temperature-to-humidity"])
+    l = extract_points_of_interest(data["light-to-temperature"])
+    w = extract_points_of_interest(data["water-to-light"])
+    f = extract_points_of_interest(data["fertilizer-to-water"])
+    s = extract_points_of_interest(data["soil-to-fertilizer"])
+    seed = extract_points_of_interest(data["seed-to-soil"])
+
+    return seed, s, f, w, l, t, h
+
+
+rmap = build_reverse_map()
+print(rmap)
