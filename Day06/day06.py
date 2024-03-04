@@ -18,7 +18,6 @@ print(total)
 time = int("".join([str(time) for time in times]))
 distance = int("".join([str(distance) for distance in distances]))
 
-ways = 0
 for winding_time in range(time):
     if (winding_time * (time - winding_time)) > distance:
         lower_limit = winding_time
